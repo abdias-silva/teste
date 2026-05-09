@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Guia de Edição do Site NEPA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --verde:#607537;--verde-escuro:#4C5C2A;--verde-bg:#F0F5E8;
+    --preto:#1a1a1a;--cinza:#666;--cinza-claro:#999;--bg:#fff;
+    --border:#e5e5e5;--azul:#285aa0;--laranja:#c8641e;--vermelho:#d32f2f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{font-size:62.5%;scroll-behavior:smooth;}
+  body{font-family:'Montserrat',sans-serif;font-size:1.6rem;line-height:1.7;color:var(--preto);background:var(--bg);}
+  .wrap{max-width:920px;margin:0 auto;padding:6rem 3rem;}
+
+  /* CAPA */
+  .capa{
+    background:linear-gradient(135deg,var(--verde) 0%,var(--verde-escuro) 100%);
+    color:#fff;padding:6rem 4rem;border-radius:1.6rem;margin-bottom:6rem;
+    text-align:center;
+  }
+  .capa h1{font-size:4.4rem;font-weight:800;margin-bottom:1.2rem;line-height:1.1;}
+  .capa .sub{font-size:1.7rem;opacity:.9;font-weight:500;}
+  .capa .badge{
+    display:inline-block;background:rgba(255,255,255,.18);padding:.6rem 1.6rem;
+    border-radius:50px;font-size:1.2rem;font-weight:700;margin-bottom:2rem;
+    letter-spacing:.1em;text-transform:uppercase;
+  }
+
+  /* SUMÁRIO */
+  .sumario{
+    background:var(--verde-bg);border-radius:1rem;padding:3rem 3.5rem;
+    margin-bottom:5rem;border-left:4px solid var(--verde);
+  }
+  .sumario h2{font-size:1.8rem;color:var(--verde-escuro);margin-bottom:1.5rem;}
+  .sumario ol{padding-left:2rem;}
+  .sumario li{margin-bottom:.6rem;font-size:1.5rem;}
+  .sumario a{color:var(--verde-escuro);text-decoration:none;font-weight:600;}
+  .sumario a:hover{text-decoration:underline;}
+
+  /* SEÇÕES */
+  section{margin-bottom:5rem;}
+  h2.cap{
+    font-size:2.6rem;font-weight:800;color:var(--preto);margin-bottom:1.5rem;
+    padding-bottom:1rem;border-bottom:3px solid var(--verde);
+  }
+  h2.cap .num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:3.2rem;height:3.2rem;border-radius:50%;background:var(--verde);
+    color:#fff;font-size:1.6rem;margin-right:1.2rem;vertical-align:middle;
+  }
+  h3.sub-cap{font-size:1.9rem;font-weight:700;color:var(--verde-escuro);margin:3rem 0 1rem;}
+  p{margin-bottom:1.4rem;color:var(--cinza);font-size:1.55rem;}
+  p strong{color:var(--preto);}
+  ul,ol{padding-left:2.5rem;margin-bottom:1.5rem;}
+  li{margin-bottom:.6rem;font-size:1.55rem;color:var(--cinza);}
+
+  /* CARDS */
+  .card{
+    background:#fafafa;border:1px solid var(--border);border-radius:1rem;
+    padding:2.5rem;margin-bottom:2rem;
+  }
+  .card h4{font-size:1.7rem;color:var(--verde-escuro);margin-bottom:1rem;font-weight:700;}
+  .card.alerta{background:#fff8e1;border-color:#f9c74f;border-left:4px solid #f9c74f;}
+  .card.alerta h4{color:#8b5a00;}
+  .card.dica{background:var(--verde-bg);border-color:var(--verde);border-left:4px solid var(--verde);}
+  .card.dica h4{color:var(--verde-escuro);}
+  .card.atencao{background:#ffebee;border-color:var(--vermelho);border-left:4px solid var(--vermelho);}
+  .card.atencao h4{color:var(--vermelho);}
+
+  /* TABELA DE ABAS */
+  table.abas{width:100%;border-collapse:collapse;margin:2rem 0;font-size:1.45rem;}
+  table.abas th{
+    background:var(--verde);color:#fff;padding:1.2rem 1.5rem;text-align:left;
+    font-weight:700;font-size:1.4rem;
+  }
+  table.abas td{
+    padding:1.4rem 1.5rem;border-bottom:1px solid var(--border);vertical-align:top;
+  }
+  table.abas tr:nth-child(even) td{background:#f8f8f8;}
+  table.abas .nome{
+    font-family:'Courier New',monospace;background:var(--verde-bg);
+    color:var(--verde-escuro);padding:.3rem .8rem;border-radius:.4rem;
+    font-weight:700;font-size:1.35rem;
+  }
+
+  /* CÓDIGO */
+  code{
+    background:#2d2d2d;color:#a8e6cf;padding:.3rem .7rem;border-radius:.4rem;
+    font-family:'Courier New',monospace;font-size:1.4rem;
+  }
+  pre{
+    background:#2d2d2d;color:#fff;padding:2rem;border-radius:.8rem;
+    overflow-x:auto;margin:1.5rem 0;font-size:1.4rem;line-height:1.6;
+  }
+  pre code{background:none;padding:0;color:#a8e6cf;}
+
+  /* PASSO A PASSO */
+  .passo{
+    display:flex;gap:2rem;margin-bottom:2.5rem;align-items:flex-start;
+  }
+  .passo-num{
+    flex-shrink:0;width:5rem;height:5rem;border-radius:50%;background:var(--verde);
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    font-size:2rem;font-weight:800;
+  }
+  .passo-body h4{font-size:1.7rem;font-weight:700;margin-bottom:.5rem;color:var(--preto);}
+
+  /* DESTAQUE COLUNAS */
+  .colunas-grid{
+    display:grid;grid-template-columns:1fr 2fr;gap:1.2rem 2rem;
+    background:#fafafa;border:1px solid var(--border);border-radius:1rem;
+    padding:2.5rem;margin:2rem 0;
+  }
+  .colunas-grid .nome-col{
+    font-family:'Courier New',monospace;color:var(--verde-escuro);font-weight:700;
+    background:var(--verde-bg);padding:.6rem 1rem;border-radius:.4rem;font-size:1.4rem;
+    align-self:start;
+  }
+  .colunas-grid .desc-col{font-size:1.45rem;color:var(--cinza);padding-top:.4rem;}
+
+  /* IMAGEM PLACEHOLDER */
+  .img-placeholder{
+    background:#f0f0f0;border:2px dashed #ccc;border-radius:.8rem;
+    padding:6rem 2rem;text-align:center;color:#999;font-size:1.4rem;margin:2rem 0;
+  }
+
+  /* PRINT */
+  @media print{
+    body{font-size:11pt;}
+    .wrap{padding:2rem 1cm;max-width:none;}
+    .capa{page-break-after:always;}
+    section{page-break-inside:avoid;}
+    h2.cap{page-break-after:avoid;}
+    .no-print{display:none;}
+  }
+
+  /* MOBILE */
+  @media (max-width: 700px){
+    .wrap{padding:3rem 1.5rem;}
+    .capa{padding:4rem 2rem;}
+    .capa h1{font-size:3rem;}
+    .colunas-grid{grid-template-columns:1fr;}
+    .passo{flex-direction:column;gap:1rem;}
+  }
+
+  .btn-print{
+    position:fixed;top:2rem;right:2rem;background:var(--verde);color:#fff;
+    border:none;padding:1.2rem 2rem;border-radius:50px;font-size:1.4rem;
+    font-weight:600;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(0,0,0,.15);
+  }
+  .btn-print:hover{background:var(--verde-escuro);}
+</style>
+</head>
+<body>
+
+<button class="btn-print no-print" onclick="window.print()">Imprimir / Salvar PDF</button>
+
+<div class="wrap">
+
+<div class="capa">
+  <span class="badge">Manual de uso</span>
+  <h1>Guia de Edição<br/>do Site NEPA</h1>
+  <p class="sub">Como atualizar o site inteiro editando uma única planilha Excel</p>
+</div>
+
+<div class="sumario">
+  <h2>Sumário</h2>
+  <ol>
+    <li><a href="#como-funciona">Como funciona o sistema</a></li>
+    <li><a href="#abas">As 10 abas da planilha</a></li>
+    <li><a href="#fluxo">Fluxo de atualização (5 passos)</a></li>
+    <li><a href="#regras">Regras importantes</a></li>
+    <li><a href="#campos-compostos">Campos especiais (com | e ;)</a></li>
+    <li><a href="#cada-aba">Detalhe de cada aba</a></li>
+    <li><a href="#problemas">Problemas comuns</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<section id="como-funciona">
+<h2 class="cap"><span class="num">1</span>Como funciona</h2>
+
+<p>Antes, para atualizar o site era preciso editar arquivos HTML. Agora, todo o conteúdo está em <strong>UMA planilha Excel</strong> chamada <code>database.xlsx</code>.</p>
+
+<p>Quando alguém visita o site, o navegador carrega essa planilha automaticamente e monta as páginas com as informações dela.</p>
+
+<div class="card dica">
+  <h4>O que isso significa para você</h4>
+  <ul>
+    <li>Não precisa saber HTML, CSS ou JavaScript</li>
+    <li>Pode editar do Excel comum, do Google Sheets ou do LibreOffice</li>
+    <li>Atualiza várias coisas de uma só vez</li>
+    <li>Não corre risco de quebrar o site mexendo em código</li>
+  </ul>
+</div>
+
+<h3 class="sub-cap">Os arquivos do site</h3>
+<p>Na pasta do site no servidor, devem estar:</p>
+<pre><code>database.xlsx        ← VOCÊ EDITA SÓ ESTE
+nepa-data.js
+index.html
+biblioteca.html
+pesquisas.html
+pesquisa-detalhe.html
+membros.html
+publicacao.html
+style.css
+img/                 ← imagens do site</code></pre>
+
+</section>
+
+<!-- ============================================================ -->
+<section id="abas">
+<h2 class="cap"><span class="num">2</span>As 10 abas da planilha</h2>
+
+<p>Abrindo o <code>database.xlsx</code>, você vê 10 abas na parte de baixo:</p>
+
+<table class="abas">
+  <tr><th>Aba</th><th>O que controla</th><th>Onde aparece</th></tr>
+  <tr><td><span class="nome">_INSTRUCOES</span></td><td>Guia interno (não mexer)</td><td>—</td></tr>
+  <tr><td><span class="nome">publicacoes</span></td><td>Artigos, livros, atlas, anais</td><td>biblioteca.html</td></tr>
+  <tr><td><span class="nome">projetos</span></td><td>Projetos de pesquisa</td><td>pesquisas.html<br/>pesquisa-detalhe.html</td></tr>
+  <tr><td><span class="nome">linhas_pesquisa</span></td><td>Linhas temáticas do NEPA</td><td>pesquisas.html<br/>index.html</td></tr>
+  <tr><td><span class="nome">membros</span></td><td>Equipe (todos)</td><td>membros.html</td></tr>
+  <tr><td><span class="nome">eventos</span></td><td>Eventos e notícias</td><td>index.html</td></tr>
+  <tr><td><span class="nome">parceiros</span></td><td>Logos institucionais</td><td>index.html</td></tr>
+  <tr><td><span class="nome">documentarios</span></td><td>Documentários</td><td>index.html</td></tr>
+  <tr><td><span class="nome">slides_home</span></td><td>Banner principal</td><td>index.html</td></tr>
+  <tr><td><span class="nome">config</span></td><td>Textos gerais (e-mail, endereço)</td><td>Todas as páginas</td></tr>
+</table>
+
+</section>
+
+<!-- ============================================================ -->
+<section id="fluxo">
+<h2 class="cap"><span class="num">3</span>Fluxo de atualização</h2>
+
+<p>Sempre que precisar atualizar qualquer coisa do site:</p>
+
+<div class="passo">
+  <div class="passo-num">1</div>
+  <div class="passo-body">
+    <h4>Baixe o database.xlsx do servidor</h4>
+    <p>Pegue a versão mais atual da planilha que está hospedada no servidor.</p>
+  </div>
+</div>
+
+<div class="passo">
+  <div class="passo-num">2</div>
+  <div class="passo-body">
+    <h4>Abra no Excel (ou LibreOffice)</h4>
+    <p>Vá para a aba que precisa editar — por exemplo, <code>projetos</code> para adicionar um projeto novo.</p>
+  </div>
+</div>
+
+<div class="passo">
+  <div class="passo-num">3</div>
+  <div class="passo-body">
+    <h4>Edite, adicione ou remova linhas</h4>
+    <p>Não altere os cabeçalhos da primeira linha. Use o próximo número disponível na coluna <code>id</code> ao adicionar.</p>
+  </div>
+</div>
+
+<div class="passo">
+  <div class="passo-num">4</div>
+  <div class="passo-body">
+    <h4>Salve mantendo o nome database.xlsx</h4>
+    <p>O nome precisa ficar exatamente igual. No Excel: Arquivo → Salvar (não Salvar Como).</p>
+  </div>
+</div>
+
+<div class="passo">
+  <div class="passo-num">5</div>
+  <div class="passo-body">
+    <h4>Suba o arquivo no servidor</h4>
+    <p>Substitua o database.xlsx antigo pelo novo, na mesma pasta dos arquivos HTML. Pronto: o site já está atualizado para todos.</p>
+  </div>
+</div>
+
+<div class="card dica">
+  <h4>Dica: faça um backup antes</h4>
+  <p>Antes de subir a versão nova, salve o arquivo antigo do servidor com outro nome (ex.: <code>database-2025-05-01.xlsx</code>). Assim, se algo der errado, você consegue voltar.</p>
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<section id="regras">
+<h2 class="cap"><span class="num">4</span>Regras importantes</h2>
+
+<div class="card atencao">
+  <h4>Coisas que NÃO devem ser feitas</h4>
+  <ul>
+    <li>Não renomeie as abas (planilhas)</li>
+    <li>Não altere os nomes dos cabeçalhos da primeira linha</li>
+    <li>Não delete a aba <code>_INSTRUCOES</code> nem <code>config</code></li>
+    <li>Não repita números de <code>id</code> na mesma aba</li>
+    <li>Não mude a coluna <code>chave</code> na aba <code>config</code></li>
+  </ul>
+</div>
+
+<h3 class="sub-cap">Coluna "id"</h3>
+<p>Toda aba tem uma coluna <code>id</code> com um número único. Para adicionar um item novo:</p>
+<ol>
+  <li>Olhe o maior número que já existe na aba</li>
+  <li>Use o próximo número (se o maior é 18, o novo é 19)</li>
+  <li>Não pule números nem repita</li>
+</ol>
+
+<h3 class="sub-cap">Colunas tipo "destaque"</h3>
+<p>Algumas colunas funcionam como sim/não:</p>
+<ul>
+  <li><strong>Para SIM</strong>: digite <code>1</code></li>
+  <li><strong>Para NÃO</strong>: deixe em branco (ou digite <code>0</code>)</li>
+</ul>
+
+<h3 class="sub-cap">Coluna "ordem"</h3>
+<p>Define em que posição o item aparece no site. Use <code>1</code> para o primeiro, <code>2</code> para o segundo, e assim por diante. Itens com a mesma ordem aparecem na ordem em que estão na planilha.</p>
+
+</section>
+
+<!-- ============================================================ -->
+<section id="campos-compostos">
+<h2 class="cap"><span class="num">5</span>Campos especiais</h2>
+
+<p>Alguns campos guardam várias informações em uma célula só. Use os separadores certos:</p>
+
+<h3 class="sub-cap">Listas simples (vírgula)</h3>
+<p>Para palavras-chave, tags, etc. Use <strong>vírgula</strong>:</p>
+<pre><code>Cerrado, Sensoriamento Remoto, Maranhão, Desmatamento</code></pre>
+
+<h3 class="sub-cap">Várias linhas (Alt+Enter)</h3>
+<p>Para objetivos numerados ou parágrafos. Use <strong>Alt+Enter</strong> dentro da célula para quebrar linha:</p>
+<pre><code>Mapear a cobertura vegetal do Cerrado
+Quantificar as taxas de desmatamento
+Avaliar a fragmentação da paisagem</code></pre>
+
+<h3 class="sub-cap">Listas com várias propriedades (| e ;)</h3>
+<p>Para equipe, cronograma, financiamento. Cada <strong>item</strong> é separado por ponto-e-vírgula <code>;</code>, e cada <strong>propriedade</strong> dentro do item é separada por barra vertical <code>|</code>.</p>
+
+<div class="card">
+  <h4>Equipe (formato: Nome|Papel)</h4>
+  <pre><code>João Silva|Coordenador; Ana Costa|Pesquisadora; Carlos Mendes|Doutorando</code></pre>
+  <p style="margin-top:1rem;font-size:1.4rem;">Vai aparecer no site como 3 cards de membros separados.</p>
+</div>
+
+<div class="card">
+  <h4>Cronograma (formato: Periodo|Titulo|Descricao|Status)</h4>
+  <pre><code>2021-2022|Levantamento|Revisão da literatura|concluida; 2023-2024|Análise|Cálculo de métricas|atual; 2024-2025|Publicação|Artigos científicos|futura</code></pre>
+  <p style="margin-top:1rem;font-size:1.4rem;">Status válidos: <code>concluida</code>, <code>atual</code>, <code>futura</code>.</p>
+</div>
+
+<div class="card">
+  <h4>Financiamento (formato: Sigla|Descrição|Valor)</h4>
+  <pre><code>CNPq|Fomento à pesquisa|Edital Universal; UFMA|Infraestrutura|Apoio institucional</code></pre>
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<section id="cada-aba">
+<h2 class="cap"><span class="num">6</span>Detalhe de cada aba</h2>
+
+<h3 class="sub-cap">Aba: publicacoes</h3>
+<p>Cada linha = uma publicação na biblioteca digital.</p>
+<div class="colunas-grid">
+  <div class="nome-col">id</div><div class="desc-col">Número único</div>
+  <div class="nome-col">titulo</div><div class="desc-col">Título completo da publicação</div>
+  <div class="nome-col">autores</div><div class="desc-col">Autores separados por ponto-e-vírgula (;)</div>
+  <div class="nome-col">publicado_em</div><div class="desc-col">Editora, revista ou ano</div>
+  <div class="nome-col">tipo</div><div class="desc-col">Artigo, Livro, Atlas, Anais, Monografia, Revista, Tese, Dissertação</div>
+  <div class="nome-col">resumo</div><div class="desc-col">Texto livre (pode ser vazio)</div>
+  <div class="nome-col">palavras_chave</div><div class="desc-col">Palavras-chave separadas por vírgula</div>
+  <div class="nome-col">arquivo_pdf</div><div class="desc-col">URL para o PDF (pode ser vazio)</div>
+  <div class="nome-col">destaque</div><div class="desc-col">1 = aparece na home; vazio = não aparece</div>
+</div>
+
+<h3 class="sub-cap">Aba: projetos</h3>
+<p>Cada linha = um projeto de pesquisa. É a aba mais completa porque alimenta também a página de detalhes.</p>
+<div class="colunas-grid">
+  <div class="nome-col">id</div><div class="desc-col">Número único</div>
+  <div class="nome-col">titulo</div><div class="desc-col">Nome do projeto</div>
+  <div class="nome-col">status</div><div class="desc-col"><code>andamento</code>, <code>concluido</code> ou <code>pausado</code></div>
+  <div class="nome-col">linha_pesquisa_id</div><div class="desc-col">Número da linha na aba <code>linhas_pesquisa</code></div>
+  <div class="nome-col">periodo</div><div class="desc-col">Ex.: 2021 – 2025</div>
+  <div class="nome-col">financiador</div><div class="desc-col">Ex.: CNPq, FAPEMA</div>
+  <div class="nome-col">pesquisadores_count</div><div class="desc-col">Texto: "4 pesquisadores"</div>
+  <div class="nome-col">progresso</div><div class="desc-col">Número 0-100 (% concluído)</div>
+  <div class="nome-col">resumo</div><div class="desc-col">Descrição curta para os cards</div>
+  <div class="nome-col">objetivos</div><div class="desc-col">Cada objetivo em uma linha (Alt+Enter)</div>
+  <div class="nome-col">metodologia</div><div class="desc-col">Texto livre, pode ter parágrafos</div>
+  <div class="nome-col">area_estudo</div><div class="desc-col">Local da pesquisa</div>
+  <div class="nome-col">resultados</div><div class="desc-col">Resultados parciais ou finais</div>
+  <div class="nome-col">palavras_chave</div><div class="desc-col">Separadas por vírgula</div>
+  <div class="nome-col">equipe</div><div class="desc-col">Nome|Papel; Nome|Papel; ...</div>
+  <div class="nome-col">cronograma</div><div class="desc-col">Periodo|Titulo|Desc|Status; ...</div>
+  <div class="nome-col">financiamento_detalhe</div><div class="desc-col">Sigla|Descrição|Valor; ...</div>
+  <div class="nome-col">publicacoes_ids</div><div class="desc-col">IDs vinculados, separados por vírgula</div>
+  <div class="nome-col">contato</div><div class="desc-col">E-mail do projeto</div>
+  <div class="nome-col">destaque</div><div class="desc-col">1 = aparece na home</div>
+</div>
+
+<h3 class="sub-cap">Aba: linhas_pesquisa</h3>
+<div class="colunas-grid">
+  <div class="nome-col">id</div><div class="desc-col">Número único (referenciado pelos projetos)</div>
+  <div class="nome-col">titulo</div><div class="desc-col">Nome da linha</div>
+  <div class="nome-col">descricao</div><div class="desc-col">Texto descritivo</div>
+  <div class="nome-col">tags</div><div class="desc-col">Separadas por vírgula</div>
+  <div class="nome-col">cor</div><div class="desc-col">Hex sem # (ex.: <code>607537</code>)</div>
+  <div class="nome-col">icone</div><div class="desc-col">Um destes: <code>ecologia</code>, <code>mapa</code>, <code>agua</code>, <code>urbano</code>, <code>comunidades</code>, <code>clima</code>, <code>educacao</code>, <code>governanca</code></div>
+  <div class="nome-col">ordem</div><div class="desc-col">Posição (1, 2, 3...)</div>
+</div>
+
+<h3 class="sub-cap">Aba: membros</h3>
+<div class="colunas-grid">
+  <div class="nome-col">id</div><div class="desc-col">Número único</div>
+  <div class="nome-col">nome</div><div class="desc-col">Nome completo (com Prof. Dr., etc.)</div>
+  <div class="nome-col">categoria</div><div class="desc-col"><code>coordenacao</code>, <code>docentes</code>, <code>discentes</code>, <code>colaboradores</code>, <code>egressos</code></div>
+  <div class="nome-col">cargo</div><div class="desc-col">Coordenador, Docente, Doutorando, IC...</div>
+  <div class="nome-col">descricao</div><div class="desc-col">Mini bio</div>
+  <div class="nome-col">foto_url</div><div class="desc-col">URL da foto (vazio = ícone padrão)</div>
+  <div class="nome-col">lattes</div><div class="desc-col">URL do Lattes</div>
+  <div class="nome-col">orcid</div><div class="desc-col">URL do ORCID</div>
+  <div class="nome-col">email</div><div class="desc-col">E-mail</div>
+  <div class="nome-col">ordem</div><div class="desc-col">Posição dentro da categoria</div>
+</div>
+
+<h3 class="sub-cap">Aba: eventos</h3>
+<div class="colunas-grid">
+  <div class="nome-col">id</div><div class="desc-col">Número único</div>
+  <div class="nome-col">titulo</div><div class="desc-col">Título do evento</div>
+  <div class="nome-col">tipo</div><div class="desc-col">Seminário, Workshop, Defesa, Palestra...</div>
+  <div class="nome-col">data</div><div class="desc-col">"15 de Junho, 2025"</div>
+  <div class="nome-col">local</div><div class="desc-col">Local físico ou online</div>
+  <div class="nome-col">descricao</div><div class="desc-col">Descrição</div>
+  <div class="nome-col">imagem_url</div><div class="desc-col">URL da imagem (vazio = padrão)</div>
+  <div class="nome-col">link</div><div class="desc-col">Link de inscrição/info</div>
+  <div class="nome-col">destaque</div><div class="desc-col">1 = evento principal (grande)</div>
+  <div class="nome-col">ordem</div><div class="desc-col">Ordem de exibição</div>
+</div>
+
+<h3 class="sub-cap">Aba: parceiros, documentarios, slides_home</h3>
+<p>Estruturas simples, com colunas auto-explicativas. Veja o comentário no cabeçalho de cada aba (passe o mouse sobre a célula <code>A1</code>).</p>
+
+<h3 class="sub-cap">Aba: config (chave/valor)</h3>
+<div class="card alerta">
+  <h4>Atenção: NÃO altere a coluna "chave"</h4>
+  <p>A primeira coluna (chave) é o "código" que conecta a planilha ao site. Se você renomear a chave, o site não vai encontrar mais o valor. Edite só a coluna <strong>valor</strong>.</p>
+</div>
+
+<p>Chaves importantes:</p>
+<div class="colunas-grid">
+  <div class="nome-col">contato_email</div><div class="desc-col">E-mail principal do NEPA</div>
+  <div class="nome-col">contato_endereco</div><div class="desc-col">Endereço físico completo</div>
+  <div class="nome-col">site_descricao_curta</div><div class="desc-col">Texto que aparece no rodapé</div>
+  <div class="nome-col">pesquisas_estat_*</div><div class="desc-col">Estatísticas da página de Pesquisas</div>
+  <div class="nome-col">membros_estat_*</div><div class="desc-col">Estatísticas da página de Membros</div>
+  <div class="nome-col">mapa_iframe_url</div><div class="desc-col">URL do Google Maps embed</div>
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<section id="problemas">
+<h2 class="cap"><span class="num">7</span>Problemas comuns</h2>
+
+<div class="card alerta">
+  <h4>"O site não atualizou depois que subi a planilha"</h4>
+  <p>O navegador pode estar mostrando uma versão em cache. Aperte <strong>Ctrl + F5</strong> (ou Cmd + Shift + R no Mac) para forçar o navegador a baixar tudo do zero.</p>
+</div>
+
+<div class="card alerta">
+  <h4>"Aparece 'Erro ao carregar database.xlsx'"</h4>
+  <ul>
+    <li>O arquivo precisa estar na mesma pasta dos HTMLs no servidor</li>
+    <li>O nome precisa ser exatamente <code>database.xlsx</code> (tudo minúsculo, sem espaço)</li>
+    <li>Se renomeou sem querer, renomeie de volta</li>
+  </ul>
+</div>
+
+<div class="card alerta">
+  <h4>"Adicionei um projeto e ele não aparece"</h4>
+  <ul>
+    <li>Conferiu se preencheu a coluna <code>status</code> com <code>andamento</code> ou <code>concluido</code>?</li>
+    <li>Conferiu se o <code>id</code> não está repetido?</li>
+    <li>Conferiu se salvou e subiu a versão nova?</li>
+  </ul>
+</div>
+
+<div class="card alerta">
+  <h4>"O cronograma/equipe ficou bagunçado"</h4>
+  <p>Verifique se está usando os separadores certos:</p>
+  <ul>
+    <li>Entre <strong>itens</strong>: ponto-e-vírgula <code>;</code></li>
+    <li>Entre <strong>propriedades de um item</strong>: barra vertical <code>|</code></li>
+  </ul>
+</div>
+
+<div class="card dica">
+  <h4>Em caso de dúvida</h4>
+  <p>Olhe o exemplo que já está cadastrado em cada aba como modelo. Os primeiros registros foram preenchidos como exemplo justamente para você usar como referência.</p>
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<section style="margin-top:8rem;text-align:center;border-top:2px solid var(--border);padding-top:4rem;">
+  <p style="font-size:1.4rem;color:var(--cinza-claro);">Manual produzido para o NEPA - UFMA</p>
+  <p style="font-size:1.3rem;color:var(--cinza-claro);margin-top:.5rem;">Para imprimir ou salvar como PDF, use o botão no canto superior direito ou Ctrl+P</p>
+</section>
+
+</div>
+
+</body>
+</html>

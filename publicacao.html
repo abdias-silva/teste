@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Detalhes da publicação — NEPA · UFMA" />
+  <title>Carregando... | NEPA</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- CABEÇALHO -->
+  <header class="header" id="siteHeader">
+    <div class="header-container">
+      <a href="index.html" class="logo" aria-label="Página inicial do NEPA">
+        <img src="./img/NOVA_LOGO_NEPA.png" alt="Logo NEPA"
+          onerror="this.src='https://placehold.co/130x42/607537/FFFFFF?text=NEPA';" />
+      </a>
+      <nav class="navbar" id="navbar" aria-label="Navegação principal">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">Sobre</a>
+        <a href="biblioteca.html" class="active-link">Biblioteca</a>
+        <a href="pesquisas.html">Pesquisas</a>
+        <a href="membros.html">Membros</a>
+        <a href="index.html#eventos">Eventos</a>
+        <a href="index.html#contato">Contato</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeToggle" aria-label="Alternar tema">
+          <svg id="iconSun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+          </svg>
+          <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" style="display:none;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+          </svg>
+        </button>
+        <button class="icon-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="navbar">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="pub-detail-page">
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb-bar" id="breadcrumb-bar" style="display:none;">
+      <nav class="breadcrumb" aria-label="Localização atual">
+        <a href="index.html">NEPA</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="biblioteca.html">Biblioteca</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span class="breadcrumb-current" id="breadcrumb-title">Publicação</span>
+      </nav>
+    </div>
+
+    <!-- ESTADO DE LOADING -->
+    <div id="loading-state" style="text-align:center; padding: 15rem 2rem 6rem;">
+      <div class="loading-spinner" style="margin:0 auto 2rem;"></div>
+      <p style="font-size:1.6rem; color:var(--cinza-claro);">Carregando publicação...</p>
+    </div>
+
+    <!-- ESTADO DE ERRO -->
+    <div id="error-state" style="display:none; text-align:center; padding:15rem 2rem 6rem; max-width:600px; margin:0 auto;">
+      <div style="font-size:5rem; margin-bottom:2rem;">📭</div>
+      <h2 style="font-family:var(--fonte-corpo); font-size:2.2rem; margin-bottom:1rem; color:var(--preto);">Publicação não encontrada</h2>
+      <p style="font-size:1.55rem; color:var(--cinza-claro); margin-bottom:3rem;">Não foi possível localizar esta publicação. Verifique o link ou explore nossa biblioteca completa.</p>
+      <a href="biblioteca.html" class="btn">← Voltar para a Biblioteca</a>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL DA PUBLICAÇÃO -->
+    <div id="pub-detail-wrap" style="display:none;">
+      <div class="pub-detail-main">
+
+        <!-- COLUNA PRINCIPAL -->
+        <article class="pub-detail-content" aria-labelledby="pub-title-main">
+          <div class="pub-detail-type-row">
+            <span id="pub-type-badge" class="badge badge-verde"></span>
+            <span id="pub-destaque-flag"></span>
+          </div>
+          <h1 class="pub-detail-title" id="pub-title-main"></h1>
+          <p class="pub-detail-authors" id="pub-authors"></p>
+
+          <!-- Resumo -->
+          <section class="pub-abstract-section" aria-labelledby="abstract-heading">
+            <h2 id="abstract-heading">Resumo</h2>
+            <div id="pub-abstract"></div>
+          </section>
+
+          <!-- Palavras-chave -->
+          <section class="keywords-section" id="keywords-section" aria-labelledby="kw-heading" style="margin-bottom:3.5rem;">
+            <h2 id="kw-heading">Palavras-chave</h2>
+            <div class="keywords-wrap" id="pub-keywords"></div>
+          </section>
+
+          <!-- Link de volta -->
+          <a href="biblioteca.html" class="btn-ghost" style="margin-top:2rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+            Voltar para a Biblioteca
+          </a>
+        </article>
+
+        <!-- SIDEBAR -->
+        <aside class="pub-detail-sidebar" aria-label="Detalhes e download">
+          <div class="pub-sidebar-card">
+            <h3>Detalhes da Publicação</h3>
+            <div id="pub-meta"></div>
+            <div id="pub-download"></div>
+          </div>
+        </aside>
+
+      </div>
+
+      <!-- PUBLICAÇÕES RELACIONADAS -->
+      <section class="related-section" id="related-section" style="display:none;" aria-labelledby="related-heading">
+        <span class="section-label">Continue explorando</span>
+        <h2 id="related-heading">Publicações Relacionadas</h2>
+        <div class="divider" style="margin-bottom:3rem;"></div>
+        <div class="related-grid" id="related-grid"></div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer class="footer-section" aria-label="Rodapé">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="./img/NOVA_LOGO_NEPA.png" alt="Logo NEPA"
+          onerror="this.src='https://placehold.co/120x38/607537/FFFFFF?text=NEPA';" loading="lazy" />
+        <p>Núcleo de Estudos e Pesquisas Ambientais — Universidade Federal do Maranhão.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="index.html">Página inicial</a></li>
+          <li><a href="biblioteca.html">Biblioteca digital</a></li>
+          <li><a href="index.html#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <div class="footer-contact-item">
+          <span>✉️</span>
+          <a href="mailto:contato.nepa@ufma.br">contato.nepa@ufma.br</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 NEPA — Núcleo de Estudos e Pesquisas Ambientais · UFMA.</p>
+    </div>
+  </footer>
+
+  <button id="back-to-top" aria-label="Voltar ao topo">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+    </svg>
+  </button>
+
+  <script>
+    // ============================================================
+    // TEMA
+    // ============================================================
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const iconSun  = document.getElementById('iconSun');
+    const iconMoon = document.getElementById('iconMoon');
+
+    function applyTheme(t) {
+      root.setAttribute('data-theme', t);
+      localStorage.setItem('nepa-theme', t);
+      iconSun.style.display  = t === 'dark' ? 'none' : 'block';
+      iconMoon.style.display = t === 'dark' ? 'block' : 'none';
+    }
+    applyTheme(localStorage.getItem('nepa-theme') || 'light');
+    themeToggle.addEventListener('click', () => {
+      applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+
+    // ============================================================
+    // MENU / HEADER
+    // ============================================================
+    const menuBtn = document.getElementById('menu-btn');
+    const navbar  = document.getElementById('navbar');
+    menuBtn.addEventListener('click', () => {
+      const open = navbar.classList.toggle('active');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+
+    const header = document.getElementById('siteHeader');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const st = window.scrollY;
+      header.classList.toggle('header--hidden', st > lastScroll && st > 100);
+      header.classList.toggle('scrolled', st > 60);
+      if (navbar.classList.contains('active')) navbar.classList.remove('active');
+      lastScroll = st <= 0 ? 0 : st;
+    }, { passive: true });
+
+    // ============================================================
+    // BACK TO TOP
+    // ============================================================
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ============================================================
+    // UTILITÁRIOS
+    // ============================================================
+    const PUB_ICONS = {
+      artigo:'📄', livro:'📚', revista:'📰', anais:'📋',
+      monografia:'🎓', atlas:'🗺️'
+    };
+    function getPubIcon(tipo) {
+      return PUB_ICONS[(tipo||'').toLowerCase()] || '🔬';
+    }
+
+    // ============================================================
+    // CARREGAR DADOS DO EXCEL
+    // ============================================================
+    async function loadAllPublications() {
+      try {
+        const resp = await fetch('database.xlsx');
+        if (!resp.ok) throw new Error('database.xlsx não encontrado');
+        const buf = await resp.arrayBuffer();
+        const wb  = XLSX.read(buf, { type: 'buffer' });
+        const ws  = wb.Sheets[wb.SheetNames[0]];
+        return XLSX.utils.sheet_to_json(ws);
+      } catch (err) {
+        console.error(err);
+        return [];
+      }
+    }
+
+    // ============================================================
+    // RENDERIZAR PUBLICAÇÃO
+    // ============================================================
+    function renderPublication(pub, allPubs) {
+      const isDestaque = pub.destaque === true || pub.destaque === 'TRUE' || pub.destaque == 1;
+
+      // Atualiza título da aba
+      document.title = `${pub.titulo} | NEPA`;
+
+      // Meta description dinâmica
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.content = pub.resumo
+        ? pub.resumo.substring(0, 160) + '...'
+        : `${pub.titulo} — Publicação do NEPA · UFMA`;
+
+      // Breadcrumb
+      document.getElementById('breadcrumb-title').textContent =
+        pub.titulo.length > 60 ? pub.titulo.substring(0, 60) + '...' : pub.titulo;
+      document.getElementById('breadcrumb-bar').style.display = 'block';
+
+      // Badge de tipo
+      const typeBadge = document.getElementById('pub-type-badge');
+      typeBadge.textContent = `${getPubIcon(pub.tipo)}  ${pub.tipo || 'Publicação'}`;
+
+      // Destaque
+      if (isDestaque) {
+        document.getElementById('pub-destaque-flag').innerHTML =
+          '<span class="badge badge-verde" style="background:var(--verde);color:#fff;">★ Publicação em Destaque</span>';
+      }
+
+      // Título e autores
+      document.getElementById('pub-title-main').textContent = pub.titulo;
+      document.getElementById('pub-authors').textContent   = pub.autores || '';
+
+      // Resumo
+      document.getElementById('pub-abstract').innerHTML = pub.resumo
+        ? `<p>${pub.resumo}</p>`
+        : '<p style="color:var(--cinza-claro);font-style:italic;">Resumo não disponível para esta publicação.</p>';
+
+      // Palavras-chave
+      if (pub.palavras_chave) {
+        const kwWrap = document.getElementById('pub-keywords');
+        pub.palavras_chave.split(',').forEach(kw => {
+          const tag = document.createElement('a');
+          tag.className = 'keyword-tag';
+          tag.textContent = kw.trim();
+          tag.href = `biblioteca.html?q=${encodeURIComponent(kw.trim())}`;
+          tag.setAttribute('aria-label', `Buscar publicações com a palavra-chave: ${kw.trim()}`);
+          kwWrap.appendChild(tag);
+        });
+      } else {
+        document.getElementById('keywords-section').style.display = 'none';
+      }
+
+      // Metadados da sidebar
+      document.getElementById('pub-meta').innerHTML = `
+        <div class="sidebar-meta-item">
+          <label>Autor(es)</label>
+          <p>${pub.autores || 'Não informado'}</p>
+        </div>
+        <div class="sidebar-meta-item">
+          <label>Publicado em</label>
+          <p>${pub.publicado_em || 'Não informado'}</p>
+        </div>
+        <div class="sidebar-meta-item">
+          <label>Tipo</label>
+          <p>${getPubIcon(pub.tipo)} ${pub.tipo || 'Não informado'}</p>
+        </div>
+        ${pub.palavras_chave ? `
+        <div class="sidebar-meta-item">
+          <label>Palavras-chave</label>
+          <p style="line-height:1.6;">${pub.palavras_chave}</p>
+        </div>` : ''}`;
+
+      // Botão de download
+      if (pub.arquivo_pdf) {
+        document.getElementById('pub-download').innerHTML = `
+          <a href="${pub.arquivo_pdf}" class="sidebar-download-btn" download
+             aria-label="Baixar arquivo PDF de ${pub.titulo}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 15V3m0 12-4-4m4 4 4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21H19.44a2 2 0 0 0 1.94-1.515L22 17"/>
+            </svg>
+            Baixar Arquivo
+          </a>`;
+      } else {
+        document.getElementById('pub-download').innerHTML = `
+          <div style="text-align:center;padding:1.5rem;font-size:1.35rem;color:var(--cinza-claro);border-top:1px solid var(--border-color);margin-top:2rem;">
+            Arquivo não disponível para download
+          </div>`;
+      }
+
+      // Publicações relacionadas
+      renderRelated(pub, allPubs);
+    }
+
+    // ============================================================
+    // PUBLICAÇÕES RELACIONADAS
+    // ============================================================
+    function renderRelated(pub, allPubs) {
+      const keywords = pub.palavras_chave
+        ? pub.palavras_chave.split(',').map(k => k.trim().toLowerCase())
+        : [];
+
+      // Score por tipo ou palavras-chave em comum
+      const scored = allPubs
+        .filter(p => p.id !== pub.id)
+        .map(p => {
+          let score = 0;
+          if ((p.tipo || '').toLowerCase() === (pub.tipo || '').toLowerCase()) score += 2;
+          if (keywords.length && p.palavras_chave) {
+            const pKws = p.palavras_chave.toLowerCase();
+            keywords.forEach(kw => { if (pKws.includes(kw)) score += 1; });
+          }
+          return { pub: p, score };
+        })
+        .filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3)
+        .map(item => item.pub);
+
+      // Fallback: mesma época ou outros do tipo
+      const related = scored.length >= 2
+        ? scored
+        : allPubs.filter(p => p.id !== pub.id && (p.tipo || '').toLowerCase() === (pub.tipo || '').toLowerCase()).slice(0, 3);
+
+      if (!related.length) return;
+
+      const section = document.getElementById('related-section');
+      const grid    = document.getElementById('related-grid');
+      section.style.display = 'block';
+
+      related.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'publication-card';
+        card.innerHTML = `
+          <div class="pub-card-meta">
+            <div class="pub-type-icon">${getPubIcon(p.tipo)}</div>
+            <span class="badge badge-verde">${p.tipo || 'Publicação'}</span>
+          </div>
+          <h3 class="pub-card-title">${p.titulo || '(sem título)'}</h3>
+          <div class="pub-card-authors">${p.autores || ''}</div>
+          <div class="pub-card-footer">
+            <span class="pub-year">${p.publicado_em || ''}</span>
+            <a href="publicacao.html?id=${p.id}" class="btn-secondary">
+              Ver detalhes
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+          </div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    // ============================================================
+    // INICIALIZAÇÃO
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', async () => {
+      const params = new URLSearchParams(window.location.search);
+      const pubId  = parseInt(params.get('id'), 10);
+
+      if (isNaN(pubId)) {
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('error-state').style.display   = 'block';
+        return;
+      }
+
+      const allPubs = await loadAllPublications();
+
+      if (!allPubs.length) {
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('error-state').style.display   = 'block';
+        document.querySelector('#error-state p').textContent =
+          'Não foi possível conectar à base de dados. Tente novamente mais tarde.';
+        return;
+      }
+
+      const pub = allPubs.find(p => p.id === pubId);
+
+      document.getElementById('loading-state').style.display = 'none';
+
+      if (!pub) {
+        document.getElementById('error-state').style.display = 'block';
+        return;
+      }
+
+      renderPublication(pub, allPubs);
+      document.getElementById('pub-detail-wrap').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
